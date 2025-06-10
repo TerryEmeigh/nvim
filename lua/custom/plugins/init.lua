@@ -13,17 +13,24 @@ return {
   },
   -- Kanagawa colorscheme
   {
-    "rebelot/kanagawa.nvim",
-    priority = 1000,  -- Load before all the other plugins
+    'rebelot/kanagawa.nvim',
+    priority = 1000, -- Load before all the other plugins
     config = function()
-      require("kanagawa").setup({
-        theme = "wave",  -- or "dragon" or "lotus"
+      require('kanagawa').setup {
+        theme = 'dragon', -- or "wave" or "lotus"
         background = {
-          dark = "wave",
-          light = "lotus",
+          dark = 'dragon',
+          light = 'lotus',
         },
-      })
-      vim.cmd.colorscheme("kanagawa")
+        commentStyle = { italic = false },
+        keywordStyle = { italic = false },
+        overrides = function()
+          return {
+            ['@variable.builtin'] = { italic = false },
+          }
+        end,
+      }
+      vim.cmd.colorscheme 'kanagawa'
     end,
-  }
+  },
 }
