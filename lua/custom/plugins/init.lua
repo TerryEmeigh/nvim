@@ -11,4 +11,19 @@ return {
       return opts
     end,
   },
+  -- Kanagawa colorscheme
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,  -- Load before all the other plugins
+    config = function()
+      require("kanagawa").setup({
+        theme = "wave",  -- or "dragon" or "lotus"
+        background = {
+          dark = "wave",
+          light = "lotus",
+        },
+      })
+      vim.cmd.colorscheme("kanagawa")
+    end,
+  }
 }
