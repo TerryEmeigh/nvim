@@ -11,17 +11,31 @@ return {
       return opts
     end,
   },
-  -- Kanagawa colorscheme
+  -- LuaLine (Custom StatusLine)
   {
-    'rebelot/kanagawa.nvim',
+    'nvim-lualine/lualine.nvim',
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'vscode', -- specify theme here (i.e. "tokyonight" or "auto")
+          icons_enabled = true,
+          section_separators = { left = '', right = '' },
+          component_separators = { left = '', right = '' },
+        },
+      }
+    end,
+  },
+  -- Mofiqul colorscheme
+  {
+    'Mofiqul/vscode.nvim',
     priority = 1000, -- Load before all the other plugins
     config = function()
-      require('kanagawa').setup {
-        theme = 'dragon', -- or "wave" or "lotus"
-        background = {
-          dark = 'dragon',
-          light = 'lotus',
-        },
+      -- set background to match theme style
+      vim.o.background = 'dark'
+
+      require('vscode').setup {
+        transparent = true,
+        style = 'dark',
         commentStyle = { italic = false },
         keywordStyle = { italic = false },
         overrides = function()
@@ -98,7 +112,9 @@ return {
           }
         end,
       }
-      vim.cmd.colorscheme 'kanagawa'
+      vim.cmd.colorscheme 'vscode'
+      -- force override for stubborn groups
+      vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' })
     end,
   },
 }
