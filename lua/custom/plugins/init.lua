@@ -11,13 +11,27 @@ return {
       return opts
     end,
   },
+  -- Telescope Keymaps
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' }, -- required by telescope
+    keys = {
+      {
+        '<leader>ff',
+        function()
+          require('telescope.builtin').find_files()
+        end,
+        desc = 'Find Files (Telescope)',
+      },
+    },
+  },
   -- LuaLine (Custom StatusLine)
   {
     'nvim-lualine/lualine.nvim',
     config = function()
       require('lualine').setup {
         options = {
-          theme = 'vscode', -- specify theme here (i.e. "tokyonight" or "auto")
+          theme = 'auto', -- specify theme here (i.e. "tokyonight")
           icons_enabled = true,
           section_separators = { left = '', right = '' },
           component_separators = { left = '', right = '' },
@@ -113,8 +127,11 @@ return {
         end,
       }
       vim.cmd.colorscheme 'vscode'
-      -- force override for stubborn groups
-      vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' })
+
+      -- defer highlight fix for CursorLine in case another plugin overrides it later
+      vim.defer_fn(function()
+        vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' })
+      end, 100)
     end,
   },
 }
